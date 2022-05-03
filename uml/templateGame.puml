@@ -1,0 +1,99 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+abstract class Game extends JPanel
+
+abstract class Game{
+    - final ScheduledExecutorService executorService;
+    # HeroAircraft heroAircraft;
+    # final ArrayList<AbstractAircraft> enemyAircrafts;
+    - int backGroundTop = 0;
+    # final int ShootInterval = 40;
+    # final int airInterval = 40;
+    # final ArrayList<BaseBullet> heroBullets;
+    # final ArrayList<BaseBullet> enemyBullets;
+    # final ArrayList<AbstractReward> leftRewards;
+    # static int score = 0;
+    # int cntBoss = 0;
+    # int recordOfBoss = 0;
+    # int totalTime;
+    # Map<String,Double> shootCycle
+    # Map<String,Double> airCycle
+    # Map<String,Double> shootDuration;
+    # Map<String,Double> airDuration;
+    # {static} String BgPath;
+    # String archivalPath;
+    # int enemyMaxNumber;
+    # int levelTime;
+    # int heroHp;
+    # int heroPower;
+    # int heroNum;
+    # int elitesHp;
+    # int elitesX;
+    # int elitesY;
+    # int elitesNum;
+    # int bossThreshold;
+    # int bossHp;
+    # int bosssX;
+    # int bosssY;
+    # int bosssNum;
+    # int mobHp;
+    # int mobsX;
+    # int mobsY;
+    # int mobsNum;
+    # int bossLimit;
+    + Game()
+    + action():void
+    # {abstract} levelUp(): void
+    # {abstract} loadAirCrafts():void
+    # {abstract} initArgs():void
+    # {abstract} initAirs():void
+    + isEnd():void
+    + loadBullets():void
+    - heroShootAction():void
+    - enemyShootAction():void
+    # timeCountAndNewCycleJudge(String air):boolean
+    - bulletsMoveAction():void
+    - rewardMoveAction():void
+    - aircraftsMoveAction():void
+    - crashCheckAction():void
+    - postProcessAction():void
+    + paint():void
+    + paint(Graphics g):void
+    - paintImageWithPositionRevised(Graphics g, List<? extends AbstractFlyingObject> objects):void
+    - paintScoreAndLife(Graphics g):void
+    + addScore(int x):void
+    + getScore():int
+    # isBoss():boolean
+    + getArchivalPath():String
+    + {static} getBgPath():String
+}
+
+
+
+
+class EasyGame extends Game {
+    # levelUp() :void
+    # loadAirCrafts():void
+    # initAirs():void
+    # initArgs():void
+}
+
+
+class HellGame extends Game {
+    # levelUp() :void
+    # loadAirCrafts():void
+    # initAirs():void
+    # initArgs():void
+}
+
+class MediumGame extends Game{
+    # levelUp() :void
+    # loadAirCrafts():void
+    # initAirs():void
+    # initArgs():void
+}
+
+
+@enduml

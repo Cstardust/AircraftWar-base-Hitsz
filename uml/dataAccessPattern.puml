@@ -1,0 +1,49 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class User{
+    - int score
+    - String strDate
+    - String name
+    + getScore():int
+    + setScore(int score):void
+    + getName():String
+    + setName(String name):void
+    + toString():String
+    + compareTo(User user):int
+    + User(String n,int s)
+}
+
+
+interface UserDao {
+    + getAllUsers():ArrayList<User>
+    + doAdd(User user):void
+    + doDelete(User user):void
+}
+
+
+class UserDaoImpl{
+    - ArrayList<User> users
+    - boolean isExist
+    - boolean isModified
+    - String FilePath
+    + UserDaoImpl()
+    + init();
+    + doAdd(User user):void
+    + getAllUsers():ArrayList
+    + doDelete(User user):void
+    + rewrite():void
+}
+
+interface Serializable{}
+interface Comparable{}
+
+
+Serializable  <|.. User
+Comparable <|.. User
+UserDao <|.. UserDaoImpl
+UserDao <.. Game
+UserDaoImpl "1"-->"1" User: has
+
+
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class BaseRewardFactory
+{
+    # int speedX
+    # int speedY
+    + createReward(AbstractAircraft air):BaseReward
+}
+
+class BloodRewardFactory
+{
+    + createReward(AbstractAircraft craft):AbstractReward
+}
+
+class BombRewardFactory
+{
+    + createReward(AbstractAircraft craft):AbstractReward
+}
+
+class BulletRewardFactory
+{
+    + createReward(AbstractAircraft craft):AbstractReward
+}
+
+
+BaseRewardFactory <|-- BloodRewardFactory
+BaseRewardFactory <|-- BombRewardFactory
+BaseRewardFactory <|-- BulletRewardFactory
+
+@enduml

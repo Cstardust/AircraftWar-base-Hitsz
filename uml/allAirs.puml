@@ -1,0 +1,148 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class AbstractFlyingObject
+{
+    # int locationX
+    # int locationY
+    # int speedX
+    # int speedY
+    # BufferedImage image
+    # int width
+    # int height
+    # boolean isValid
+
+    + AbstractFlyingObject(int locationX, int locationY, int speedX, int speedY)
+    + forward():void
+    + crash(AbstractFlyingObject flyingObject):boolean
+    + setLocation(double locationX, double locationY):void
+    + getLocationX():int
+    + getLocationY():int
+    + getSpeedY():int
+    + getImage():BufferedImage
+    + getWidth():int
+    + getHeight():int
+    + notValid():boolean
+    + vanish():void
+}
+
+
+abstract class AbstractAircraft
+{
+	# int maxHp
+    # int hp
+    # shootNum
+    # power
+    # direction
+    + AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp,int power,int direction,int val,int shootnum)
+    + decreaseHp(int decrease):void
+    + getHp():int
+    + getHp():int
+    + addShootNum():int
+    + {abstract} shoot():List<Bullet>
+ }
+
+abstract class BaseBullet
+{
+    - int power
+    + BaseBullet(int locationX, int locationY, int speedX, int speedY, int power)
+    + forward():void
+	+ getPower():int
+}
+
+abstract class AbstractReward{
+    + AbstractReward(int locationX, int locationY, int speedX, int speedY)
+    + forward() : void
+    + take_effect(HeroAircraft heroAircraft):void
+}
+
+AbstractFlyingObject <|-- AbstractReward
+AbstractFlyingObject <|-- AbstractAircraft
+AbstractFlyingObject <|-- BaseBullet
+
+AbstractAircraft <|-- HeroAircraft
+AbstractAircraft <|-- MobEnemy
+AbstractAircraft <|-- EliteEnemy
+AbstractAircraft <|-- BossEnemy
+
+BaseBullet <|-- HeroBullet
+BaseBullet <|-- EnemyBullet
+
+AbstractReward <|-- BloodReward
+AbstractReward <|-- BulletReward
+AbstractReward <|-- BombReward
+
+class HeroAircraft {
+    - static HeroAircraft hero
+    - HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp,int pw,int direction,int shootNum)
+    + {static} getHeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp,int power,int direction,int shootNum):HeroAircraft
+    + forward():void
+    + shoot():List<Bullet>
+    + setStrategy(ShootStrategy s):void
+    + addHp(int x):void
+    + addSpeedY(int x):void
+    + addPower(int x):void
+    + addNum(int x):void
+}
+
+class EliteEnemy{
+    + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp,int power,int direction,int val,int shootNum)
+    + forward():void
+    + shoot():List<BaseBullet>
+    + setStrategy(ShootStrategy s)
+    + handler():int
+}
+
+class BossEnemy{
+    - Context c
+    - MusicThread mt
+    + BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp,int power,int direction,int val,int shootNum)
+    + forward():void
+    + vanish():void
+    + shoot():List<BaseBullet>
+    + handler():int
+}
+
+class MobEnemy {
+    + MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+    + forward():void
+    + shoot():List<Bullet>
+    + handler():int
+}
+
+
+class HeroBullet {
+    + HeroBullet(int locationX, int locationY,
+     int speedX, int speedY, int power)
+}
+
+class EnemyBullet {
+    + EnemyBullet(int locationX, int locationY,
+     int speedX, int speedY, int power)
+    + handler() : int
+}
+
+
+class BloodReward{
+    + BloodReward(int locationX, int locationY, int speedX, int speedY)
+    + take_effect(HeroAircraft heroAircraft):void
+}
+
+class BulletReward{
+    - {static} MusicThread mt
+    - {volatile static} validTime
+    - {static} Thread t
+    + BulletReward(int locationX, int locationY, int speedX, int speedY)
+    + take_effect(HeroAircraft heroAircraft):void
+}
+
+class BombReward{
+    - ArrayList<Observer> obs
+    + addObs(ArrayList<Observer> obs)
+    + BulletReward(int locationX, int locationY, int speedX, int speedY)
+    + take_effect(HeroAircraft heroAircraft):void
+    + dispatch():void
+}
+
+
+@enduml

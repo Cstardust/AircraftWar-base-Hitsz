@@ -1,0 +1,55 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface Observer{
+    + handler():int
+}
+
+interface Subject{
+    + dispatch():int
+}
+
+
+class BombReward{
+    - ArrayList<Observer> obs
+    + addObs(ArrayList<Observer> obs)
+    + BulletReward(int locationX, int locationY, int speedX, int speedY)
+    + take_effect(HeroAircraft heroAircraft):void
+    + dispatch():void
+}
+
+class EliteEnemy{
+    + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp,int power,int direction,int val,int shootNum)
+    + forward():void
+    + shoot():List<BaseBullet>
+    + setStrategy(ShootStrategy s)
+    + handler():int
+}
+
+class EnemyBullet {
+    + EnemyBullet(int locationX, int locationY,
+     int speedX, int speedY, int power)
+    + handler() : int
+}
+
+
+class MobEnemy {
+    + MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+    + forward():void
+    + shoot():List<Bullet>
+    + handler():int
+}
+
+
+
+
+class BombReward implements Subject
+class EliteEnemy implements Observer
+class EnemyBullet implements Observer
+class MobEnemy implements Observer
+class BossEnemy implements Observer
+
+
+Subject --> Observer
+
+@enduml

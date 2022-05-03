@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class BaseCraftFactory {
+    # int locationX
+    # int locationY
+    # int speedX
+    # int speedY
+    # int val
+    # int power
+    + createAircraft(int hp,int speedX,int speedY,int shootNum):AbstractAircraft
+}
+
+class BossEnemyFactory{
+    + createAircraft(int hp,int speedX,int speedY,int shootNum):AbstractAircraft
+}
+
+class EliteEnemyFactory{
+    + createAircraft(int hp,int speedX,int speedY,int shootNum):AbstractAircraft
+}
+
+class MobEnemyFactory{
+    + createAircraft():AbstractAircraft
+}
+
+BaseCraftFactory <|-- BossEnemyFactory
+BaseCraftFactory <|-- EliteEnemyFactory
+BaseCraftFactory <|-- MobEnemyFactory
+
+@enduml

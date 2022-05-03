@@ -1,0 +1,76 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface ShootStrategy{
+     + doShoot(int power,int direction,int airX,int airY,int spy,int spx,int shootNum , String type)):List<BaseBullet>
+}
+
+class ScatteredShoot{
+    - int x
+    - int y
+    - int speedX
+    - int speedY
+    + doShoot(int power, int direction, int airX, int airY, int spy, int spx,int shootNum , String type):List<BaseBullet>
+}
+
+class StraightShoot{
+    - int x
+    - int y
+    - int speedX
+    - int speedY
+    + doShoot(int power,int direction,int airX,int airY,int spy,int spx,int shootNum,String type):List<BaseBullet>
+}
+
+
+class Context
+{
+    - ShootStrategy strategy;
+    + Context(ShootStrategy s)
+    + setStrategy(ShootStrategy s):void
+    + executeStrategy(int power, int direction, int airX, int airY, int spy,int shootNum,int spx,String type):List<BaseBullet>
+}
+
+
+
+class EliteEnemy{
+    + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp,int power,int direction,int val,int shootNum)
+    + forward():void
+    + shoot():List<BaseBullet>
+    + setStrategy(ShootStrategy s)
+    + handler():int
+}
+
+class BossEnemy{
+    - Context c
+    - MusicThread mt
+    + BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp,int power,int direction,int val,int shootNum)
+    + forward():void
+    + vanish():void
+    + shoot():List<BaseBullet>
+    + handler():int
+}
+
+
+class HeroAircraft {
+    - static HeroAircraft hero
+    - HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp,int pw,int direction,int shootNum)
+    + {static} getHeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp,int power,int direction,int shootNum):HeroAircraft
+    + forward():void
+    + shoot():List<Bullet>
+    + setStrategy(ShootStrategy s):void
+    + addHp(int x):void
+    + addSpeedY(int x):void
+    + addPower(int x):void
+    + addNum(int x):void
+}
+
+
+
+HeroAircraft "1"-->"1" Context : has
+EliteEnemy "1" --> "1" Context :has
+BossEnemy "1" --> "1" Context :has
+ShootStrategy <|.. StraightShoot
+ShootStrategy <|.. ScatteredShoot
+Context o-- ShootStrategy:Aggregation
+
+@enduml
